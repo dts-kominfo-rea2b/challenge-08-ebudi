@@ -5,37 +5,88 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Challenge - DOM</title>
+    <style>
+      body {
+        background-color: #968dc8;
+      }
+      #app {
+        background-color: #edf2f5;
+        display: block;
+        border-radius: 10px;
+        margin: 5% auto;
+        padding: 15px;
+        max-width: 300px;
+        width: 60%;
+        text-align: center;
+      }
+      #app > h5 {
+        background-color: #67facb;
+        margin: 10px 35%;
+      }
+      #app > p {
+        font-size: 10px;
+        margin-top: 20px;
+      }
+      #app > ul {
+        text-align: left;
+      }
+    </style>
   </head>
   <body>
     <div id="app">
       <!-- TODO: Buatlah sebuah header dengan id todo-title -->
       <!-- TODO: Buatlah sebuah subtitle dengan id todo-subtitle -->
-
+      <h3 id="todo-title" class="center"></h3>
+      <h4 id="todo-subtitle" class="center"></h4>
+      <div class="center">
       <!-- Section: input -->
       <!-- TODO: Buatlah sebuah input bertipe text dengan id todo-input -->
       <!-- TODO: Buatlah sebuah button dengan id todo-submit -->
-
+      <input type="text" id="todo-input">
+      <button id="todo-submit"></button>
+      </div>
       <!-- Section output -->
       <!-- TODO: Buatlah sebuah <ul> dengan id todo-output -->
+      <ul id="todo-output">
     </div>
 
     <!-- ! Untuk tantangan ini, script jangan diubah ke external js yah ! -->
     <script>
       // TODO: Deklarasi variable sesuai dengan kebutuhan di sini
-      let button;
-      let input;
-      let output;
+      let button = document.querySelector('#todo-submit');
+      let input = document.querySelector('#todo-input');
+      let output = document.querySelector('#todo-output');
+
+      document.getElementById('todo-title').append('To-Do List');
+      document.getElementById('todo-subtitle').innerHTML = '~ Today I need to ~';
+      document.getElementById('todo-submit').textContent = 'Submit';
 
       // TODO: Buatlah sebuah fungsi dengan nama fnClickHandler
       // Fungsi yang digunakan untuk menambahkan tulisan
       // Jangan ubah cara deklarasi fungsinya, cukup isi saja
-      function fnClickHandler(toDoItem) {}
+      function fnClickHandler(toDoItem) {
+      const li = document.createElement('li');
+      li.textContent = toDoItem;
+      output.appendChild(li);
+      }
 
       // TODO: register event onclick / addEventListener untuk button
       // akan menjalankan fungsi fnClickHandler
-      
+      button.addEventListener('click', (event) => {
+      fnClickHandler(input.value);
+
+      input.value = '';
+      });
       // TODO: register event onkeypress / addEventListener untuk input
       // sehingga saat di input ditekan enter akan menjalankan fungsi fnClickHandler juga
+      input.addEventListener('keypress', (event) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+
+        fnClickHandler(input.value);
+        input.value = '';
+      }
+    });
     </script>
   </body>
 </html>
